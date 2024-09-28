@@ -1,2 +1,2 @@
-# cs-apimanager-net8
- Custom Async and Sync requests module for personal purposes
+# Custom APIManager in C# .NET 8 Library
+ Custom asynchronous and synchronous requests library for personal purposes.
