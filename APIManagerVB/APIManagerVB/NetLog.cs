@@ -16,6 +16,7 @@ namespace APIManagerVB
         {
             Type = type;
             Title = title;
+            Time = DateTime.Now;
         }
         public NetLog(LogType type, string title, string details) : this(type, title)
         {

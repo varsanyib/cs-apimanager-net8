@@ -14,7 +14,7 @@ namespace APIManagerVB.Request
         /// <summary>
         /// HTTP Method (GET, POST, PUT, PATCH, DELETE)
         /// </summary>
-        public HttpMethod Method { get; set; }
+        public RequestMethod Method { get; set; }
         /// <summary>
         /// API Base URL
         /// </summary>
@@ -40,9 +40,9 @@ namespace APIManagerVB.Request
         public int AnswerTimeout { get; set; }
 
         /// <summary>
-        /// Request is not processing JSON data if it is true
+        /// Request is processing JSON data if it is true
         /// </summary>
-        public bool JSONRequestNotProcessing { get; private set; } = false;
+        public bool JsonAnswerProcessing { get; set; } = true;
         #endregion
 
         #region HTTP API Data
@@ -82,7 +82,7 @@ namespace APIManagerVB.Request
         /// <summary>
         /// HTTP Response Data in JSON if parsable
         /// </summary>
-        public JObject? ResponseJson { get; private set; }
+        public JObject ResponseJson { get; private set; } = new JObject();
         #endregion
 
         #region HttpClient Data
@@ -103,7 +103,7 @@ namespace APIManagerVB.Request
         #endregion
 
         #region Constructors
-        public Asynchronous(HttpMethod method, string baseURL)
+        public Asynchronous(RequestMethod method, string baseURL)
         {
             Method = method;
             BaseURL = baseURL;
@@ -114,7 +114,7 @@ namespace APIManagerVB.Request
             CtsToken = Cts.Token;
         }
 
-        public Asynchronous(HttpMethod method, string baseURL, string endpoint) : this(method, baseURL)
+        public Asynchronous(RequestMethod method, string baseURL, string endpoint) : this(method, baseURL)
         {
             Endpoint = endpoint;
 
@@ -125,12 +125,12 @@ namespace APIManagerVB.Request
             }
         }
 
-        public Asynchronous(HttpMethod method, string baseURL, string endpoint, AuthType auth) : this(method, baseURL, endpoint)
+        public Asynchronous(RequestMethod method, string baseURL, string endpoint, AuthType auth) : this(method, baseURL, endpoint)
         {
             Auth = auth;
         }
 
-        public Asynchronous(HttpMethod method, string baseURL, string endpoint, AuthType auth, string bearer) : this(method, baseURL, endpoint)
+        public Asynchronous(RequestMethod method, string baseURL, string endpoint, AuthType auth, string bearer) : this(method, baseURL, endpoint)
         {
             Auth = auth;
             //Add Bearer token to headers if AuthType is Bearer
@@ -153,11 +153,9 @@ namespace APIManagerVB.Request
         /// <summary>
         /// Executing API Request
         /// </summary>
-        public async void Execute(int timeout = 10)
+        public async Task Execute()
         {
-            AnswerTimeout = timeout;
-            Logs.Add(new NetLog(LogType.INFO, "Asyncronous request executing started", $"URL: {BaseURL}{Endpoint}, Timeout: {timeout} second(s)"));
-
+            Logs.Add(new NetLog(LogType.INFO, "Asyncronous request executing started", $"URL: {BaseURL}{Endpoint}"));
             try
             {
                 using (Client = new HttpClient())
@@ -166,17 +164,10 @@ namespace APIManagerVB.Request
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
                     //Set Client Timeout
-                    Client.Timeout = TimeSpan.FromSeconds(timeout);
+                    Client.Timeout = TimeSpan.FromSeconds(AnswerTimeout);
 
-                    //Set JSON Media Type if BodyData is JSON
-                    if (BodyData == BodyType.JSON)
-                    {
-                        Headers.Add("Content-Type", "application/json");
-                        Logs.Add(new NetLog(LogType.INFO, "Content-Type set: application/json"));
-                    }
-
-                    //Accept JSON Media Type if JSON proccessing is false
-                    if (!JSONRequestNotProcessing)
+                    //Accept JSON Media Type if JSON proccessing is true
+                    if (JsonAnswerProcessing)
                     {
                         Headers.Add("Accept", "application/json");
                         Logs.Add(new NetLog(LogType.INFO, "Accept set: application/json"));
@@ -228,19 +219,19 @@ namespace APIManagerVB.Request
                     HttpResponseMessage response;
                     switch (Method)
                     {
-                        case HttpMethod.GET:
+                        case RequestMethod.GET:
                             response = await Client.GetAsync($"{BaseURL}{Endpoint}", CtsToken);
                             break;
-                        case HttpMethod.POST:
+                        case RequestMethod.POST:
                             response = await Client.PostAsync($"{BaseURL}{Endpoint}", content, CtsToken);
                             break;
-                        case HttpMethod.PUT:
+                        case RequestMethod.PUT:
                             response = await Client.PutAsync($"{BaseURL}{Endpoint}", content, CtsToken);
                             break;
-                        case HttpMethod.PATCH:
+                        case RequestMethod.PATCH:
                             response = await Client.PatchAsync($"{BaseURL}{Endpoint}", content, CtsToken);
                             break;
-                        case HttpMethod.DELETE:
+                        case RequestMethod.DELETE:
                             response = await Client.DeleteAsync($"{BaseURL}{Endpoint}", CtsToken);
                             break;
                         default:
@@ -262,7 +253,7 @@ namespace APIManagerVB.Request
                     {
                         Logs.Add(new NetLog(LogType.WARNING, "Response Text is empty", "Response Text is empty"));
                     }
-                    else
+                    else if (JsonAnswerProcessing)
                     {
                         //Response Text to JSON
                         try
@@ -279,11 +270,7 @@ namespace APIManagerVB.Request
             }
             catch (OperationCanceledException)
             {
-                Logs.Add(new NetLog(LogType.INFO, "Cancelled API Request", $"Timeout: {timeout} second(s)"));
-            }
-            catch (TimeoutException toEx)
-            {
-                Logs.Add(new NetLog(LogType.ERROR, "Request Timeout", $"Timeout: {timeout} second(s)\n{toEx.Message}"));
+                Logs.Add(new NetLog(LogType.ERROR, "Cancelled API Request", $"Timeout: {AnswerTimeout} second(s)"));
             }
             catch (Exception ex)
             {
@@ -293,7 +280,6 @@ namespace APIManagerVB.Request
             {
                 Executed = true;
             }
-
         }
         #endregion
     }

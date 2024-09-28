@@ -25,7 +25,7 @@ namespace APIManagerVB
         JSON = 2,
         URLENCODED = 3
     }
-    public enum HttpMethod
+    public enum RequestMethod
     {
         GET = 0,
         POST = 1,
