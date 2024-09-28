@@ -247,7 +247,7 @@ namespace APIManagerVB.Request
                     Logs.Add(new NetLog(LogType.INFO, $"HTTP Status: {response.StatusCode}"));
 
                     //Set Response Text
-                    ResponseText = await response.Content.ReadAsStringAsync();
+                    ResponseText = await response.Content.ReadAsStringAsync() ?? string.Empty;
                     //Check if ResponseText is empty
                     if (string.IsNullOrEmpty(ResponseText))
                     {
