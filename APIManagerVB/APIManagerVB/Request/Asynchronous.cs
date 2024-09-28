@@ -211,7 +211,6 @@ namespace APIManagerVB.Request
                             }
                             break;
                         default:
-                            content = new StringContent(string.Empty);
                             break;
                     }
 
