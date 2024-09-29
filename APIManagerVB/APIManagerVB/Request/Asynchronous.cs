@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace APIManagerVB.Request
 {
-    public class Asynchronous
+    public class Asynchronous : IRequestBase
     {
         #region Basics of API Requests
         /// <summary>
