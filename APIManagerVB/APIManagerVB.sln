@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIManagerVB", "APIManagerVB\APIManagerVB.csproj", "{3D2359D3-B5FC-4133-BDCB-77878EE43976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIAsyncTestCLI", "APIAsyncTestCLI\APIAsyncTestCLI.csproj", "{2A07C897-D722-4870-A322-FD0DE07A87BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIAsyncTestCLI", "APIAsyncTestCLI\APIAsyncTestCLI.csproj", "{2A07C897-D722-4870-A322-FD0DE07A87BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APISyncTestCLI", "APISyncTestCLI\APISyncTestCLI.csproj", "{D74C0A99-C096-4419-BC0C-3FC57AF01A2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2A07C897-D722-4870-A322-FD0DE07A87BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A07C897-D722-4870-A322-FD0DE07A87BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A07C897-D722-4870-A322-FD0DE07A87BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D74C0A99-C096-4419-BC0C-3FC57AF01A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74C0A99-C096-4419-BC0C-3FC57AF01A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D74C0A99-C096-4419-BC0C-3FC57AF01A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D74C0A99-C096-4419-BC0C-3FC57AF01A2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

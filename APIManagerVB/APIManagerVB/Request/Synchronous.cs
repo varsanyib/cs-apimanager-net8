@@ -107,7 +107,7 @@ namespace APIManagerVB.Request
         {
             Method = method;
             BaseURL = baseURL;
-            Logs.Add(new NetLog(LogType.INFO, "Asyncronous request created", $"Method: {Method.ToString()}"));
+            Logs.Add(new NetLog(LogType.INFO, "Syncronous request created", $"Method: {Method.ToString()}"));
 
             //Create CancellationTokenSource and CancellationToken
             Cts = new CancellationTokenSource();
