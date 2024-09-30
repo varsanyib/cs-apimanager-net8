@@ -1,4 +1,4 @@
-﻿using APIManagerVB.Request;
+﻿using APIManagerVB.Requests;
 using APIManagerVB;
 using Newtonsoft.Json.Linq;
 
@@ -29,7 +29,7 @@ namespace APISyncTestCLI
         static void TestDeleteCall()
         {
             //5 seconds delay on API
-            Synchronous req = new Synchronous(RequestMethod.DELETE, "https://reqres.in/api", "/users/3?delay=3");
+            SyncRequest req = new SyncRequest(RequestMethod.DELETE, "https://reqres.in/api", "/users/3?delay=3");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 5;
             //Add a header
@@ -58,7 +58,7 @@ namespace APISyncTestCLI
         static void TestPutCall()
         {
             //5 seconds delay on API
-            Synchronous req = new Synchronous(RequestMethod.PUT, "https://reqres.in/api", "/users/3");
+            SyncRequest req = new SyncRequest(RequestMethod.PUT, "https://reqres.in/api", "/users/3");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 4;
             //Add a header
@@ -89,7 +89,7 @@ namespace APISyncTestCLI
         static void TestPostCall()
         {
             //5 seconds delay on API
-            Synchronous req = new Synchronous(RequestMethod.POST, "https://reqres.in/api", "/users");
+            SyncRequest req = new SyncRequest(RequestMethod.POST, "https://reqres.in/api", "/users");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 4;
             //Add a header
@@ -121,7 +121,7 @@ namespace APISyncTestCLI
         static void TestCall()
         {
             //5 seconds delay on API
-            Synchronous req = new Synchronous(RequestMethod.GET, "https://reqres.in/api", "/users/1?delay=2");
+            SyncRequest req = new SyncRequest(RequestMethod.GET, "https://reqres.in/api", "/users/1?delay=2");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 4;
             //Add a header

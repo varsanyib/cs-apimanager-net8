@@ -1,6 +1,5 @@
-﻿
-using APIManagerVB;
-using APIManagerVB.Request;
+﻿using APIManagerVB;
+using APIManagerVB.Requests;
 using Newtonsoft.Json.Linq;
 
 namespace APIAsyncTestCLI
@@ -28,7 +27,7 @@ namespace APIAsyncTestCLI
         static async Task TestDeleteCall()
         {
             //5 seconds delay on API
-            Asynchronous req = new Asynchronous(RequestMethod.DELETE, "https://reqres.in/api", "/users/3?delay=3");
+            AsyncRequest req = new AsyncRequest(RequestMethod.DELETE, "https://reqres.in/api", "/users/3?delay=3");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 5;
             //Add a header
@@ -57,7 +56,7 @@ namespace APIAsyncTestCLI
         static async Task TestPutCall()
         {
             //5 seconds delay on API
-            Asynchronous req = new Asynchronous(RequestMethod.PUT, "https://reqres.in/api", "/users/3");
+            AsyncRequest req = new AsyncRequest(RequestMethod.PUT, "https://reqres.in/api", "/users/3");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 4;
             //Add a header
@@ -88,7 +87,7 @@ namespace APIAsyncTestCLI
         static async Task TestPostCall()
         {
             //5 seconds delay on API
-            Asynchronous req = new Asynchronous(RequestMethod.POST, "https://reqres.in/api", "/users");
+            AsyncRequest req = new AsyncRequest(RequestMethod.POST, "https://reqres.in/api", "/users");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 4;
             //Add a header
@@ -120,7 +119,7 @@ namespace APIAsyncTestCLI
         static async Task TestCall()
         {
             //5 seconds delay on API
-            Asynchronous req = new Asynchronous(RequestMethod.GET, "https://reqres.in/api", "/users/1?delay=2");
+            AsyncRequest req = new AsyncRequest(RequestMethod.GET, "https://reqres.in/api", "/users/1?delay=2");
             //Max. Request timeout (def: 10 sec)
             req.AnswerTimeout = 4;
             //Add a header
