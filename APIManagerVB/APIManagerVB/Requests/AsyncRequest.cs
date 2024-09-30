@@ -6,9 +6,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIManagerVB.Request
+namespace APIManagerVB.Requests
 {
-    public class Asynchronous : IRequestBase
+    public class AsyncRequest : IRequestBase
     {
         #region Basics of API Requests
         /// <summary>
@@ -103,7 +103,7 @@ namespace APIManagerVB.Request
         #endregion
 
         #region Constructors
-        public Asynchronous(RequestMethod method, string baseURL)
+        public AsyncRequest(RequestMethod method, string baseURL)
         {
             Method = method;
             BaseURL = baseURL;
@@ -114,7 +114,7 @@ namespace APIManagerVB.Request
             CtsToken = Cts.Token;
         }
 
-        public Asynchronous(RequestMethod method, string baseURL, string endpoint) : this(method, baseURL)
+        public AsyncRequest(RequestMethod method, string baseURL, string endpoint) : this(method, baseURL)
         {
             Endpoint = endpoint;
 
@@ -125,12 +125,12 @@ namespace APIManagerVB.Request
             }
         }
 
-        public Asynchronous(RequestMethod method, string baseURL, string endpoint, AuthType auth) : this(method, baseURL, endpoint)
+        public AsyncRequest(RequestMethod method, string baseURL, string endpoint, AuthType auth) : this(method, baseURL, endpoint)
         {
             Auth = auth;
         }
 
-        public Asynchronous(RequestMethod method, string baseURL, string endpoint, AuthType auth, string bearer) : this(method, baseURL, endpoint)
+        public AsyncRequest(RequestMethod method, string baseURL, string endpoint, AuthType auth, string bearer) : this(method, baseURL, endpoint)
         {
             Auth = auth;
             //Add Bearer token to headers if AuthType is Bearer
